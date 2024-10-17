@@ -1,9 +1,23 @@
-# TinyMCE
-TinyMCE editor for Laravel Orchid
+# LaraOrchidTinyMCE
 
-php artisan vendor:publish --tag=laravel-assets --ansi --force
+TinyMCE editor for Laravel Orchid. Forked from ... . I want to add disk and path setting, and set correct image ctrl+c ctrl+v pasting. 
 
-than add to config/platform.php 
+## Install
+
+Add this to main `composer.json`:
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/OlegAnTo2000/LaraOrchidTinyMCE"
+    }
+]
+```
+
+Run `composer require oleganto2000/laraorchidtinymce`.
+
+Than add to `config/platform.php`:
 
 ```
 'resource' => [
@@ -16,3 +30,13 @@ than add to config/platform.php
     ],
 ],
 ```
+
+## Updating
+
+If you want to change something, you should start `npm run production`, and after this run:
+
+```
+php artisan vendor:publish --tag=laravel-assets --ansi --force
+```
+
+
