@@ -1,5 +1,5 @@
 {
-    "name": "orchidcommunity/tinymce",
+    "name": "oleganto2000/laraorchidtinymce",
     "description": "TinyMCE editor for Laravel Orchid",
     "type": "library",
     "require": {
@@ -9,6 +9,10 @@
         {
             "name": "tabuna",
             "email": "bliz48rus@gmail.com"
+        },
+        {
+            "name": "OlegAnTo2000",
+            "email": "4942000@gmail.com"
         }
     ],
     "autoload": {
