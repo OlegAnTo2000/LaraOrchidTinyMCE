@@ -112,4 +112,21 @@ class TinyMCE extends Field
         
         return $editor;
     }
+
+    /**
+     * Set custom attachment upload path
+     */
+    public function path(string $path): self
+    {
+        return $this->set('path', $path);
+    }
+
+    /**
+     * Set custom attachment upload path
+     */
+    public function storage(string $storage): self
+    {
+        return $this->set('storage', $storage);
+    }
+    
 }
