@@ -67,16 +67,21 @@ application.register("tinymce", class extends window.Controller {
      * @param success
      */
     upload(blobInfo, success, failure) {
-        console.log(this);
-        console.log(blobInfo);
+        // console.log(this);
+        // console.log(blobInfo);
+
+        const selector = this.element.querySelector('.tinymce').id;
+        // console.log(selector);
         
         const data = new FormData();
         data.append('file', blobInfo.blob());
         
-        let token = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
-        data.append('storage', 'public2');
-        data.append('path', 'images/posts/1');  
-        data.append('_token', token);        
+        // let token = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+        let storage = this.element.dataset.storage;
+        if (storage) data.append('storage', storage);
+        let path = this.element.dataset.storage;
+        if (path) data.append('path', path);  
+        // data.append('_token', token);        
     
         let prefix = function (path) {
             let prefix = document.head.querySelector('meta[name="dashboard-prefix"]');
@@ -85,8 +90,7 @@ application.register("tinymce", class extends window.Controller {
             return `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}${pathname}`;
         };
     
-        const selector = this.element.querySelector('.tinymce').id;
-        console.log(selector);
+        
     
         return axios.post(prefix('/systems/files'), data)
         .then((response) => {
