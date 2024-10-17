@@ -37,7 +37,7 @@ Than add to `config/platform.php`:
 
 ## Updating
 
-If you want to change something, you should start `npm run production`, and after this run:
+If you want to change something, you should start `npm run production` \(or `npm run development` for fast testing`), and after this run:
 
 ```
 php artisan vendor:publish --tag=laravel-assets --ansi --force
