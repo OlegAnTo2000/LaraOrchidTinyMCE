@@ -15,7 +15,11 @@ Add this to main `composer.json`:
 ]
 ```
 
-Run `composer require oleganto2000/laraorchidtinymce`.
+Run 
+
+```
+composer require oleganto2000/laraorchidtinymce:master
+```
 
 Than add to `config/platform.php`:
 
