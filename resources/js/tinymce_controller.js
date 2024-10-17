@@ -79,7 +79,7 @@ application.register("tinymce", class extends window.Controller {
         // let token = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
         let storage = this.element.dataset.storage;
         if (storage) data.append('storage', storage);
-        let path = this.element.dataset.storage;
+        let path = this.element.dataset.path;
         if (path) data.append('path', path);  
         // data.append('_token', token);        
     
