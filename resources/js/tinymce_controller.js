@@ -23,7 +23,7 @@ application.register("tinymce", class extends window.Controller {
             min_height: 300,
             height: 300,
             max_height: 600,
-            plugins,
+            plugins: "image",
             toolbar1,
             insert_toolbar: 'quickimage quicktable media codesample fullscreen',
             selection_toolbar:
@@ -46,7 +46,7 @@ application.register("tinymce", class extends window.Controller {
                     $(input).val(element.getContent());
                 });
             },
-            images_upload_handler: this.upload,
+            images_upload_handler: this.upload.bind(this),
         };
 
         let configExt;
@@ -66,26 +66,42 @@ application.register("tinymce", class extends window.Controller {
      * @param blobInfo
      * @param success
      */
-    upload(blobInfo, success) {
+    upload(blobInfo, success, failure) {
+        console.log(this);
+        console.log(blobInfo);
+        
         const data = new FormData();
         data.append('file', blobInfo.blob());
-
+        
+        let token = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+        data.append('storage', 'public2');
+        data.append('path', 'images/posts/1');  
+        data.append('_token', token);        
+    
         let prefix = function (path) {
             let prefix = document.head.querySelector('meta[name="dashboard-prefix"]');
             // Remove double slashes from url
             let pathname = `${prefix.content}${path}`.replace(/\/\/+/g, '/')
             return `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}${pathname}`;
         };
-
-        axios
-            .post(prefix('/systems/files'), data)
-            .then((response) => {
-                success(response.data.url);
-            })
-            .catch((error) => {
-                alert('Validation error : File upload error');
-                console.warn(error);
-            });
+    
+        const selector = this.element.querySelector('.tinymce').id;
+        console.log(selector);
+    
+        return axios.post(prefix('/systems/files'), data)
+        .then((response) => {
+            // console.log(response.data.url);
+            // console.log('Response from server:', response);
+            // console.log('Image URL:', response.data.url);
+            success(response.data.url);
+            return Promise.resolve(response.data.url);
+        })
+        .catch((error) => {
+            alert('Validation error: File upload error');
+            console.warn(error);
+            failure('Image upload failed');
+            return Promise.reject(error);
+        });
     }
 
     disconnect() {
